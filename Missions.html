@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Page d'accueil — structure HTML de base">
+    <title>Missions</title>
+    <link rel="stylesheet" href="missions.css">
+</head>
+
+   <body>
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="logo"><img src="astro.png"></div>
+            
+        </div>
+        
+        <div class="right-section">
+            <div class="search-bar">
+                <span></span>
+                <input type="text" placeholder="Search">
+            </div>
+            <span class="language">English ▼</span>
+            <div class="icons">
+                <div class="icon"><img src="OIP (1).webp" class="img"></div>
+                <div class="icon"><img src="OIP.webp" class="img"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navigation">
+        <div class="social-links">
+            <a href="#"><img src="insta.webp" class="img1" ></a>
+            <a href="#"><img src="Twitter.webp" class="img1" ></a>
+            <a href="#"><img src="be.webp" class="img1" ></a>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="planete.html">Planètes</a></li>
+            <li><a href="Missions.html">Missions</a></li>
+        </ul>
+        
+      <a href="cantact.html" class="contact-btn">Contact Us</a>
+    </nav>
+    <header class="header">
+    <video autoplay muted loop playsinline class="banner-video">
+        <source src="spacebg.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+    </video>
+
+    <div class="header-content">
+        <h1>Notre Missions</h1>
+        <p>Notre site explore les grandes missions spatiales passées</p>
+    </div>
+</header>
+    <section class="main">
+
+<div class="planet-cards">
+        
+   
+        </div>
+        <div class="planet-cards">
+                 
+        </div>
+           <div class="planet-cards">
+                  
+</div>
+<div class="planet-cards">
+            
+                   
+    </div>
+            
+            
+</section>
+<div id="missionModal" class="modal hidden">
+    <div class="modal-content">
+        <h2 id="modalTitle">Nouvelle mission</h2>
+
+        <form id="missionForm">
+            <input type="text" id="title" placeholder="Nom de la mission">
+            <input type="text" id="agence" placeholder="Agence">
+            <input type="text" id="objectif" placeholder="Objectif">
+            <input type="date" id="date">
+            <input type="text" id="image" placeholder="URL de l’image">
+
+            
+            <button type="submit" id="saveMission">Enregistrer</button>
+            <button type="button" id="closeModal">Annuler</button>
+        </form>
+    </div>
+</div>
+<section id="favorisSection">
+    <h2>⭐ Favoris</h2>
+    <div id="favorisContainer" class="planet-cards"></div>
+</section>
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Colonne Legal -->
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne Information -->
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne Company -->
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne Newsletter -->
+            <div class="footer-column newsletter-section">
+                <h3>Subscribe</h3>
+                <input type="email" class="email-input" placeholder="Email address">
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <!-- Logo -->
+                <div class="footer-logo">
+                    <div class="footer-logo-icon"><img src="astro.png" class="gg"></div>
+                    
+                </div>
+
+                <!-- Links -->
+                <div class="footer-links">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Cookies</a>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <div class="social-icon"> <a href="#"><img src="instag.webp" class="img1" ></a>
+           </div>
+                    <div class="social-icon"> 
+            <a href="#"><img src="fac.webp" class="img1" ></a>
+            </a></div>
+                    <div class="social-icon"><a href="#"><img src="twitttt.webp" class="img1" ></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+/* ============================================================
+   1) VARIABLES
+============================================================ */
+let missions = [];        // rempli après fetch
+let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+let editId = null;
+
+/* ============================================================
+   2) CHARGER LE JSON (FETCH)
+============================================================ */
+fetch("data/missions.json")
+    .then(res => res.json())
+    .then(data => {
+        missions = data;
+        renderMissions();
+        renderFavoris();
+    })
+    .catch(err => console.log("Erreur JSON :", err));
+
+/* ============================================================
+   3) ELEMENTS DU DOM
+============================================================ */
+const container = document.querySelector(".planet-cards");
+const favorisContainer = document.getElementById("favorisContainer");
+
+const btnAdd = document.getElementById("btnAddMission");
+const modal = document.getElementById("missionModal");
+const form = document.getElementById("missionForm");
+const closeModalBtn = document.getElementById("closeModal");
+
+/* ============================================================
+   4) OUVRIR / FERMER LE MODAL
+============================================================ */
+btnAdd.onclick = () => openModal();
+closeModalBtn.onclick = () => closeModal();
+
+function openModal(mission = null) {
+    modal.classList.remove("hidden");
+
+    if (mission) {
+        document.getElementById("modalTitle").textContent = "Modifier la mission";
+        document.getElementById("title").value = mission.name;
+        document.getElementById("agence").value = mission.agency;
+        document.getElementById("objectif").value = mission.objective;
+        document.getElementById("date").value = mission.launchDate;
+        document.getElementById("image").value = mission.image;
+
+        editId = mission.id;
+    } else {
+        editId = null;
+        form.reset();
+        document.getElementById("modalTitle").textContent = "Nouvelle mission";
+    }
+}
+
+function closeModal() {
+    modal.classList.add("hidden");
+    form.reset();
+}
+
+/* ============================================================
+   5) AJOUT / EDITION MISSION
+============================================================ */
+form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const missionData = {
+        id: editId ?? Date.now(),
+        name: document.getElementById("title").value,
+        agency: document.getElementById("agence").value,
+        objective: document.getElementById("objectif").value,
+        launchDate: document.getElementById("date").value,
+        image: document.getElementById("image").value
+    };
+
+    if (editId) {
+        missions = missions.map(m => m.id === editId ? missionData : m);
+    } else {
+        missions.push(missionData);
+    }
+
+    closeModal();
+    renderMissions();
+    renderFavoris();
+});
+
+/* ============================================================
+   6) SUPPRESSION
+============================================================ */
+function deleteMission(id) {
+    if (!confirm("Supprimer cette mission ?")) return;
+
+    missions = missions.filter(m => m.id !== id);
+    favoris = favoris.filter(f => f !== id);
+
+    renderMissions();
+    renderFavoris();
+    saveFavoris();
+}
+
+/* ============================================================
+   7) FAVORIS
+============================================================ */
+function toggleFavoris(id) {
+    if (favoris.includes(id)) {
+        favoris = favoris.filter(f => f !== id);
+    } else {
+        favoris.push(id);
+    }
+
+    saveFavoris();
+    renderMissions();
+    renderFavoris();
+}
+
+function saveFavoris() {
+    localStorage.setItem("favoris", JSON.stringify(favoris));
+}
+
+/* ============================================================
+   8) AFFICHAGE MISSIONS
+============================================================ */
+function renderMissions() {
+    container.innerHTML = "";
+
+    missions.forEach(m => {
+        container.innerHTML += `
+            <div class="planet-card">
+                <h2>${m.name}</h2>
+
+                <img src="${m.image}" class="card-video"/>
+
+                <div class="nnana">
+                    <div><label>Agence:</label> <span>${m.agency}</span></div>
+                    <div><label>Objectif:</label> <span>${m.objective}</span></div>
+                    <div><label>Date:</label> <span>${m.launchDate}</span></div>
+                </div>
+
+              
+                <div class="boutonss">
+                <div class="mdf">
+                <button onclick='openModal(${JSON.stringify(m)})' class="btn1">Modifier</button>
+                <button onclick="deleteMission(${m.id})" class="btn1">Supprimer</button></div>
+                <button class="favorite-btn" onclick="toggleFavoris(${m.id})">
+                    ${favoris.includes(m.id) ? "⭐" : "☆"}
+                </button></div>
+            </div>
+        `;
+    });
+}
+
+/* ============================================================
+   9) AFFICHAGE FAVORIS
+============================================================ */
+function renderFavoris() {
+    favorisContainer.innerHTML = "";
+
+    favoris.forEach(id => {
+        const m = missions.find(mi => mi.id === id);
+        if (!m) return;
+
+        favorisContainer.innerHTML += `
+            <div class="planet-card">
+                <h2>${m.name}</h2>
+                <img src="${m.image}" class="card-video"/>
+
+                <button class="favorite-btn" onclick="toggleFavoris(${m.id})">
+                    Retirer ⭐
+                </button>
+            </div>
+        `;
+    });
+}
+</script>
+
+</body>
+</html>

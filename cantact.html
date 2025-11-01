@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Page d'accueil — structure HTML de base">
+    <title>contact</title>
+    <link rel="stylesheet" href="cantact.css">
+</head>
+<body>
+   <body>
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="logo"><img src="astro.png"></div>
+            
+        </div>
+        
+        <div class="right-section">
+            <div class="search-bar">
+                <span></span>
+                <input type="text" placeholder="Search">
+            </div>
+            <span class="language">English ▼</span>
+            <div class="icons">
+                <div class="icon"><img src="OIP (1).webp" class="img"></div>
+                <div class="icon"><img src="OIP.webp" class="img"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navigation">
+        <div class="social-links">
+            <a href="#"><img src="insta.webp" class="img1" ></a>
+            <a href="#"><img src="Twitter.webp" class="img1" ></a>
+            <a href="#"><img src="be.webp" class="img1" ></a>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="planete.html">Planètes</a></li>
+            <li><a href="Missions.html">Missions</a></li>
+        </ul>
+        <div class="btn">
+        <button class="contact-btn">Contact Us</button>
+         <button id="darkToggle">🌙 Mode sombre</button></div>
+    </nav>
+    <div class="container">
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <!-- Left Side - Contact Info -->
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p>Say something to start a live chat!</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <span>+91 234556 789</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>demo@gmail.com</span>
+                    </div>
+                </div>
+
+                <div class="social-icons">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">in</div>
+                    <div class="social-icon">🔗</div>
+                </div>
+
+               
+            </div>
+
+            <!-- Right Side - Contact Form -->
+            <div class="contact-form">
+                <form id="form" novalidate>
+                    <div class="form-group">
+                        <div>
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="">
+                        </div>
+                        <div>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="">
+                        </div>
+                        <div>
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="subject-group">
+                        <label>Select Subject?</label>
+                        <div class="subject-options">
+                            <div class="subject-option">
+                                <input type="radio" id="general1" name="subject" value="general" >
+                                <label for="general1">General Inquiry</label>
+                            </div>
+                            <div class="subject-option">
+                                <input type="radio" id="general2" name="subject" value="support">
+                                <label for="general2">General Inquiry</label>
+                            </div>
+                            <div class="subject-option">
+                                <input type="radio" id="general3" name="subject" value="feedback">
+                                <label for="general3">General Inquiry</label>
+                            </div>
+                            <div class="subject-option">
+                                <input type="radio" id="general4" name="subject" value="other">
+                                <label for="general4">General Inquiry</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="message">Message</label>
+                        <textarea id="message1" name="message" placeholder="Write your message"></textarea>
+                    </div>
+
+                   <button type="submit" class="submit-btn">Send Message</button>
+
+                </form>
+                <p id="message"></p>
+            </div>
+        </section>
+
+        <!-- Support Methods -->
+        <section class="support-methods">
+            <div class="method-card">
+                <div class="method-icon">✉️</div>
+                <h3>Email</h3>
+                <p>For any inquiries or assistance, feel free to contact us via email. We are here to help with your questions.</p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">💬</div>
+                <h3>Live Chat</h3>
+                <p>Connect with us through live chat for instant support and answers to your questions. We're here to help you!</p>
+                <a href="#" class="method-link">Click Here ›</a>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">📱</div>
+                <h3>Phone</h3>
+                <p>Call us now for immediate assistance! Our team is ready to help you with any inquiries or support you need.</p>
+                <a href="tel:+911234567890" class="method-link">+91 1234567890</a>
+            </div>
+        </section>
+    </div>
+
+
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Colonne Legal -->
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne Information -->
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne Company -->
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne Newsletter -->
+            <div class="footer-column newsletter-section">
+                <h3>Subscribe</h3>
+                <input type="email" class="email-input" placeholder="Email address">
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <!-- Logo -->
+                <div class="footer-logo">
+                    <div class="footer-logo-icon"><img src="astro.png" class="gg"></div>
+                    
+                </div>
+
+                <!-- Links -->
+                <div class="footer-links">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Cookies</a>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <div class="social-icon"> <a href="#"><img src="instag.webp" class="img1" ></a>
+           </div>
+                    <div class="social-icon"> 
+            <a href="#"><img src="fac.webp" class="img1" ></a>
+            </a></div>
+                    <div class="social-icon"><a href="#"><img src="twitttt.webp" class="img1" ></div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+  <script>
+document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const firstNameInput = document.getElementById("firstName");
+    const lastNameInput = document.getElementById("lastName");
+    const phoneInput = document.getElementById("phone");
+    const emailInput = document.getElementById("email");
+    const message = document.getElementById("message");
+    const selection = document.querySelector('input[name="subject"]:checked');
+    const inputMessage=document.getElementById("message1");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const firstName = firstNameInput.value.trim();
+    const lastName = lastNameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const email = emailInput.value.trim();
+    const Message=inputMessage.value.trim();
+
+    // Reset des bordures
+    firstNameInput.style.borderColor = "";
+    lastNameInput.style.borderColor = "";
+    phoneInput.style.borderColor = "";
+    emailInput.style.borderColor = "";
+    inputMessage.style.borderColor="";
+
+    if (firstName === "" || lastName === "" || phone === "" || email === "" || Message==="") {
+        message.textContent = "Tous les champs doivent être remplis !";
+        message.style.color = "red";
+        if (firstName === "") firstNameInput.style.borderColor = "red";
+        if (lastName === "") lastNameInput.style.borderColor = "red";
+        if (phone === "") phoneInput.style.borderColor = "red";
+        if (email === "") emailInput.style.borderColor = "red";
+        if(Message==="") inputMessage.style.borderColor="red";
+        return;
+    }
+
+    if (!selection) {
+        message.textContent = "Veuillez sélectionner un sujet !";
+        message.style.color = "red";
+        return;
+    }
+
+    if (!emailRegex.test(email)) {
+        message.textContent = "Format d'email invalide !";
+        message.style.color = "red";
+        emailInput.style.borderColor = "red";
+        return;
+    }
+
+    
+    message.textContent = "Les messages sont envoyés avec succès !";
+    message.style.color = "green";
+    firstNameInput.style.borderColor = "green";
+    lastNameInput.style.borderColor = "green";
+    phoneInput.style.borderColor = "green";
+    emailInput.style.borderColor = "green";
+    inputMessage.style.borderColor= "green";
+});
+const toggleBtn = document.getElementById("darkToggle");
+const body = document.body;
+
+toggleBtn.addEventListener("click", () => {
+  body.classList.toggle("dark-mode"); // active ou désactive le mode sombre
+
+  // changer le texte ou l’icône du bouton selon le mode
+  if (body.classList.contains("dark-mode")) {
+    toggleBtn.textContent = "☀️ Mode clair";
+  } else {
+    toggleBtn.textContent = "🌙 Mode sombre";
+  }
+});
+
+</script>
+    </body>
+
+</html>

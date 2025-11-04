@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -190,6 +191,8 @@
             width: 90%;
             max-width: 500px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-content h2 {
@@ -247,13 +250,13 @@
             box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);
         }
 
-        #closeModal {
+        #closeModal, #closeFavoritesModal {
             background: rgba(255, 255, 255, 0.1);
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
-        #closeModal:hover {
+        #closeModal:hover, #closeFavoritesModal:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -303,6 +306,151 @@
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.3);
         }
+
+        /* Style du bouton d'ajout */
+        .add-mission-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .add-mission-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .add-mission-container {
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Bouton étoile favoris */
+        .favorites-btn {
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(240, 147, 251, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .favorites-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(240, 147, 251, 0.6);
+        }
+
+        .favorites-count {
+            background: white;
+            color: #f5576c;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Icône étoile sur les cartes */
+        .favorite-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .favorite-icon:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .favorite-icon.active {
+            animation: starPulse 0.5s ease;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3) rotate(180deg); }
+        }
+
+        /* Modal favoris */
+        .favorites-modal-content {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .empty-favorites {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .empty-favorites-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -324,23 +472,6 @@
             </div>
         </div>
     </div>
-
-    <nav class="navigation">
-        <div class="social-links">
-            <a href="#"><img src="insta.webp" class="img1" ></a>
-            <a href="#"><img src="Twitter.webp" class="img1" ></a>
-            <a href="#"><img src="be.webp" class="img1" ></a>
-        </div>
-        
-        <ul class="nav-menu">
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="planete.html">Planètes</a></li>
-            <li><a href="Missions.html">Missions</a></li>
-        </ul>
-        
-        <a href="cantact.html" class="contact-btn">Contact Us</a>
-    </nav>
 
     <header class="header">
         <video autoplay muted loop playsinline class="banner-video">
@@ -380,10 +511,25 @@
         </div>
     </div>
 
+    <!-- Boutons d'ajout et favoris -->
+    <div class="add-mission-container">
+        <button id="addMissionBtn" class="add-mission-btn">
+            <span style="font-size: 24px;">➕</span>
+            Ajouter une nouvelle mission
+        </button>
+        
+        <button id="favoritesBtn" class="favorites-btn">
+            <span style="font-size: 24px;">⭐</span>
+            Mes Favoris
+            <span class="favorites-count" id="favoritesCount">0</span>
+        </button>
+    </div>
+
     <section class="main">
         <div id="searchResults" class="planet-cards"></div>
     </section>
 
+    <!-- Modal pour ajouter/modifier une mission -->
     <div id="missionModal" class="modal hidden">
         <div class="modal-content">
             <h2 id="modalTitle">Nouvelle mission</h2>
@@ -403,10 +549,20 @@
         </div>
     </div>
 
-    <section id="favorisSection">
-        <h2>⭐ Favoris</h2>
-        <div id="favorisContainer" class="planet-cards"></div>
-    </section>
+    <!-- Modal des favoris -->
+    <div id="favoritesModal" class="modal hidden">
+        <div class="favorites-modal-content">
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">
+                ⭐ Mes Missions Favorites
+            </h2>
+            <div id="favoritesContainer" class="favorites-grid"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="closeFavoritesModal" style="padding: 12px 40px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: 600; background: rgba(255, 255, 255, 0.1); color: white; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-content">
@@ -466,6 +622,7 @@
 
     <script>
         let missions = [];
+        let favorites = [];
         let currentFilter = 'all';
         let editingIndex = null;
         const container = document.getElementById("searchResults");
@@ -474,6 +631,9 @@
         const modal = document.getElementById("missionModal");
         const modalTitle = document.getElementById("modalTitle");
         const missionForm = document.getElementById("missionForm");
+        const favoritesModal = document.getElementById("favoritesModal");
+        const favoritesContainer = document.getElementById("favoritesContainer");
+        const favoritesCount = document.getElementById("favoritesCount");
 
         // Charger les missions
         fetch("data/missions.json")
@@ -498,26 +658,88 @@
                 return;
             }
 
-            container.innerHTML = missionsToRender.map((m, index) => `
-                <div class="planet-card" data-index="${index}">
-                    <h2>${m.name}</h2>
-                    <img src="${m.image}" class="card-video"/>
-                    <div class="nnana">
-                        <div><label>Agence:</label> <span>${m.agency}</span></div>
-                        <div><label>Objectif:</label> <span>${m.objective}</span></div>
-                        <div><label>Date:</label> <span>${m.launchDate}</span></div>
-                        ${m.category ? `<div><label>Catégorie:</label> <span>${m.category}</span></div>` : ''}
+            container.innerHTML = missionsToRender.map((m, index) => {
+                const isFavorite = favorites.includes(index);
+                return `
+                    <div class="planet-card" data-index="${index}">
+                        <span class="favorite-icon ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(${index})">
+                            ${isFavorite ? '⭐' : '☆'}
+                        </span>
+                        <h2>${m.name}</h2>
+                        <img src="${m.image}" class="card-video"/>
+                        <div class="nnana">
+                            <div><label>Agence:</label> <span>${m.agency}</span></div>
+                            <div><label>Objectif:</label> <span>${m.objective}</span></div>
+                            <div><label>Date:</label> <span>${m.launchDate}</span></div>
+                            ${m.category ? `<div><label>Catégorie:</label> <span>${m.category}</span></div>` : ''}
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-edit" onclick="editMission(${index})">
+                                ✏️ Modifier
+                            </button>
+                            <button class="btn-delete" onclick="deleteMission(${index})">
+                                🗑️ Supprimer
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-actions">
-                        <button class="btn-edit" onclick="editMission(${index})">
-                            ✏️ Modifier
-                        </button>
-                        <button class="btn-delete" onclick="deleteMission(${index})">
-                            🗑️ Supprimer
-                        </button>
+                `;
+            }).join('');
+        }
+
+        // Fonction pour afficher les favoris
+        function renderFavorites() {
+            if (favorites.length === 0) {
+                favoritesContainer.innerHTML = `
+                    <div class="empty-favorites">
+                        <div class="empty-favorites-icon">⭐</div>
+                        <h3 style="color: white; margin-bottom: 10px;">Aucun favori</h3>
+                        <p>Cliquez sur l'étoile d'une mission pour l'ajouter à vos favoris</p>
                     </div>
-                </div>
-            `).join("");
+                `;
+                return;
+            }
+
+            const favoriteMissions = favorites.map(index => missions[index]);
+            favoritesContainer.innerHTML = favoriteMissions.map((m, arrayIndex) => {
+                const originalIndex = favorites[arrayIndex];
+                return `
+                    <div class="planet-card">
+                        <span class="favorite-icon active" onclick="toggleFavorite(${originalIndex})">⭐</span>
+                        <h2>${m.name}</h2>
+                        <img src="${m.image}" class="card-video"/>
+                        <div class="nnana">
+                            <div><label>Agence:</label> <span>${m.agency}</span></div>
+                            <div><label>Objectif:</label> <span>${m.objective}</span></div>
+                            <div><label>Date:</label> <span>${m.launchDate}</span></div>
+                            ${m.category ? `<div><label>Catégorie:</label> <span>${m.category}</span></div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Fonction pour basculer les favoris
+        function toggleFavorite(index) {
+            const favoriteIndex = favorites.indexOf(index);
+            
+            if (favoriteIndex > -1) {
+                favorites.splice(favoriteIndex, 1);
+                showNotification('Retiré des favoris', 'info');
+            } else {
+                favorites.push(index);
+                showNotification('Ajouté aux favoris ⭐', 'success');
+            }
+            
+            updateFavoritesCount();
+            renderMissions(missions);
+            if (!favoritesModal.classList.contains('hidden')) {
+                renderFavorites();
+            }
+        }
+
+        // Mettre à jour le compteur de favoris
+        function updateFavoritesCount() {
+            favoritesCount.textContent = favorites.length;
         }
 
         // Fonction de recherche
@@ -565,6 +787,14 @@
             }
         }
 
+        // Fonction pour ouvrir le modal d'ajout de mission
+        function openAddMissionModal() {
+            editingIndex = null;
+            modalTitle.textContent = "Ajouter une nouvelle mission";
+            missionForm.reset();
+            modal.classList.remove('hidden');
+        }
+
         // Fonction pour modifier une mission
         function editMission(index) {
             editingIndex = index;
@@ -585,7 +815,6 @@
         function deleteMission(index) {
             const mission = missions[index];
             
-            // Créer un dialogue de confirmation personnalisé
             const confirmDiv = document.createElement('div');
             confirmDiv.innerHTML = `
                 <div class="confirm-dialog">
@@ -602,127 +831,128 @@
             
             document.getElementById('confirmYes').addEventListener('click', () => {
                 missions.splice(index, 1);
+                
+              // Mettre à jour les indices des favoris
+                favorites = favorites.filter(fav => fav !== index).map(favIndex => favIndex > index ? favIndex - 1 : favIndex);
+                
+                showNotification(`Mission "${mission.name}" supprimée`, 'danger');
                 renderMissions(missions);
                 updateResultsCount(missions.length);
-                document.body.removeChild(confirmDiv);
-                
-                // Notification de succès
-                showNotification('Mission supprimée avec succès!', 'success');
+                updateFavoritesCount();
+                confirmDiv.remove();
             });
-            
+
             document.getElementById('confirmNo').addEventListener('click', () => {
-                document.body.removeChild(confirmDiv);
+                confirmDiv.remove();
             });
         }
 
-        // Fonction pour afficher une notification
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 25px;
-                background: ${type === 'success' ? 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'};
-                color: white;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => document.body.removeChild(notification), 300);
-            }, 3000);
-        }
-
-        // Gestion du formulaire
-        missionForm.addEventListener('submit', (e) => {
+        // Fonction de soumission du formulaire (ajout/modification)
+        missionForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const missionData = {
+
+            const newMission = {
                 name: document.getElementById("missionName").value,
                 agency: document.getElementById("missionAgency").value,
                 objective: document.getElementById("missionObjective").value,
                 launchDate: document.getElementById("missionDate").value,
-                category: document.getElementById("missionCategory").value,
+                category: document.getElementById("missionCategory").value || null,
                 image: document.getElementById("missionImage").value
             };
-            
+
             if (editingIndex !== null) {
-                missions[editingIndex] = missionData;
-                showNotification('Mission modifiée avec succès!', 'success');
-                editingIndex = null;
+                // Modification
+                missions[editingIndex] = newMission;
+                showNotification('Mission modifiée avec succès', 'success');
             } else {
-                missions.push(missionData);
-                showNotification('Mission ajoutée avec succès!', 'success');
+                // Ajout
+                missions.push(newMission);
+                showNotification('Mission ajoutée avec succès', 'success');
             }
-            
+
             renderMissions(missions);
             updateResultsCount(missions.length);
             modal.classList.add('hidden');
-            missionForm.reset();
         });
 
         // Fermer le modal
         document.getElementById('closeModal').addEventListener('click', () => {
             modal.classList.add('hidden');
-            missionForm.reset();
-            editingIndex = null;
         });
 
-        // Fermer le modal en cliquant en dehors
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.add('hidden');
-                missionForm.reset();
-                editingIndex = null;
-            }
-        });
+        // Événements de recherche et de filtre
+        searchInput.addEventListener('input', (e) => searchMissions(e.target.value));
 
-        // Événement de recherche
-        searchInput.addEventListener('input', (e) => {
-            searchMissions(e.target.value);
-        });
-
-        // Gestion des filtres
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
                 searchMissions(searchInput.value);
             });
         });
 
-        // Ajouter les animations CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
+        // Fonction pour afficher une notification (simulée)
+        function showNotification(message, type = 'info') {
+            // Implémentation simple pour l'exemple (vous pouvez la styliser)
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '10px';
+            notification.style.zIndex = '10000';
+            notification.style.color = 'white';
+            notification.style.fontWeight = 'bold';
+            notification.style.transition = 'opacity 0.5s ease';
+
+            switch (type) {
+                case 'success':
+                    notification.style.backgroundColor = '#38ef7d';
+                    break;
+                case 'danger':
+                    notification.style.backgroundColor = '#f5576c';
+                    break;
+                case 'info':
+                default:
+                    notification.style.backgroundColor = '#4a90e2';
+                    break;
             }
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        // Initialisation : chargement du compteur de favoris (doit être après la définition de updateFavoritesCount)
+        updateFavoritesCount();
+
+        // ÉVÉNEMENTS POUR LA GESTION DES FAVORIS
+
+        // 1. Ouvrir le modal des favoris au clic sur le bouton
+        document.getElementById('favoritesBtn').addEventListener('click', () => {
+            renderFavorites(); // Met à jour et affiche le contenu des favoris
+            favoritesModal.classList.remove('hidden');
+            // Optionnel : Ajouter une animation d'ouverture
+            favoritesModal.style.animation = 'slideIn 0.5s forwards'; 
+        });
+
+        // 2. Fermer le modal des favoris au clic sur le bouton "Fermer"
+        document.getElementById('closeFavoritesModal').addEventListener('click', () => {
+            // Optionnel : Ajouter une animation de fermeture avant de cacher
+            favoritesModal.style.animation = 'slideOut 0.5s forwards'; 
+            setTimeout(() => {
+                favoritesModal.classList.add('hidden');
+                favoritesModal.style.animation = ''; // Réinitialiser l'animation
+            }, 500); // 500ms correspond à la durée de l'animation 'slideOut'
+        });
+
+        // 3. Ouvrir le modal d'ajout de mission
+        document.getElementById("addMissionBtn").addEventListener('click', openAddMissionModal);
     </script>
 </body>
+
 </html>

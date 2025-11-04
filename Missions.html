@@ -654,7 +654,7 @@
         const favoritesCount = document.getElementById("favoritesCount");
 
         // Charger les missions
-        fetch("data/missions.json")
+        fetch("missions.json")
             .then(res => res.json())
             .then(data => {
                 missions = data;

@@ -6,13 +6,310 @@
     <meta name="description" content="Page d'accueil — structure HTML de base">
     <title>Missions</title>
     <link rel="stylesheet" href="missions.css">
+    <style>
+        /* Style pour la barre de recherche */
+        .search-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .search-box {
+            background-color: black;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #4a90e2;
+            border-color: #4a90e2;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .no-results-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* Animation pour les cartes */
+        .planet-card {
+            animation: fadeIn 0.5s ease;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-results-count {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        /* Styles pour les boutons d'action */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        /* Style du modal amélioré */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .modal-content input::placeholder, .modal-content textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-content input:focus, .modal-content textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        #saveMission {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        #saveMission:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);
+        }
+
+        #closeModal {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        #closeModal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Confirmation dialog */
+        .confirm-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            text-align: center;
+            color: white;
+        }
+
+        .confirm-dialog h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .confirm-dialog-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .confirm-dialog-buttons button {
+            padding: 10px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .confirm-yes {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .confirm-no {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 
-   <body>
+<body>
     <div class="top-bar">
         <div class="logo-section">
             <div class="logo"><img src="astro.png"></div>
-            
         </div>
         
         <div class="right-section">
@@ -42,67 +339,77 @@
             <li><a href="Missions.html">Missions</a></li>
         </ul>
         
-      <a href="cantact.html" class="contact-btn">Contact Us</a>
+        <a href="cantact.html" class="contact-btn">Contact Us</a>
     </nav>
+
     <header class="header">
-    <video autoplay muted loop playsinline class="banner-video">
-        <source src="spacebg.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
-    </video>
+        <video autoplay muted loop playsinline class="banner-video">
+            <source src="spacebg.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
 
-    <div class="header-content">
-        <h1>Notre Missions</h1>
-        <p>Notre site explore les grandes missions spatiales passées</p>
+        <div class="header-content">
+            <h1>Notre Missions</h1>
+            <p>Notre site explore les grandes missions spatiales passées</p>
+        </div>
+    </header>
+
+    <!-- Barre de recherche -->
+    <div class="search-container">
+        <div class="search-box">
+            <div class="search-input-wrapper">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Rechercher une mission par nom, agence, objectif, date ou catégorie..."
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Tout</button>
+                <button class="filter-btn" data-filter="name">Nom</button>
+                <button class="filter-btn" data-filter="agency">Agence</button>
+                <button class="filter-btn" data-filter="objective">Objectif</button>
+                <button class="filter-btn" data-filter="date">Date</button>
+                <button class="filter-btn" data-filter="category">Catégorie</button>
+            </div>
+
+            <div class="search-results-count" id="resultsCount"></div>
+        </div>
     </div>
-</header>
+
     <section class="main">
+        <div id="searchResults" class="planet-cards"></div>
+    </section>
 
-<div class="planet-cards">
-        
-   
+    <div id="missionModal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modalTitle">Nouvelle mission</h2>
+            <form id="missionForm">
+                <input type="text" id="missionName" placeholder="Nom de la mission" required>
+                <input type="text" id="missionAgency" placeholder="Agence" required>
+                <textarea id="missionObjective" placeholder="Objectif" rows="3" required></textarea>
+                <input type="date" id="missionDate" required>
+                <input type="text" id="missionCategory" placeholder="Catégorie (ex: Exploration, Satellite...)">
+                <input type="text" id="missionImage" placeholder="URL de l'image" required>
+                
+                <div class="modal-buttons">
+                    <button type="submit" id="saveMission">Enregistrer</button>
+                    <button type="button" id="closeModal">Annuler</button>
+                </div>
+            </form>
         </div>
-        <div class="planet-cards">
-                 
-        </div>
-           <div class="planet-cards">
-                  
-</div>
-<div class="planet-cards">
-            
-                   
     </div>
-            
-            
-</section>
-<div id="missionModal" class="modal hidden">
-    <div class="modal-content">
-        <h2 id="modalTitle">Nouvelle mission</h2>
 
-        <form id="missionForm">
-            <input type="text" id="title" placeholder="Nom de la mission">
-            <input type="text" id="agence" placeholder="Agence">
-            <input type="text" id="objectif" placeholder="Objectif">
-            <input type="date" id="date">
-            <input type="text" id="image" placeholder="URL de l’image">
-
-            
-            <button type="submit" id="saveMission">Enregistrer</button>
-            <button type="button" id="closeModal">Annuler</button>
-        </form>
-    </div>
-</div>
-<section id="favorisSection">
-    <h2>⭐ Favoris</h2>
-    <div id="favorisContainer" class="planet-cards"></div>
-</section>
-
-
-
-
+    <section id="favorisSection">
+        <h2>⭐ Favoris</h2>
+        <div id="favorisContainer" class="planet-cards"></div>
+    </section>
 
     <footer class="footer">
         <div class="footer-content">
-            <!-- Colonne Legal -->
             <div class="footer-column">
                 <h3>Legal</h3>
                 <ul>
@@ -112,7 +419,6 @@
                 </ul>
             </div>
 
-            <!-- Colonne Information -->
             <div class="footer-column">
                 <h3>Information</h3>
                 <ul>
@@ -122,7 +428,6 @@
                 </ul>
             </div>
 
-            <!-- Colonne Company -->
             <div class="footer-column">
                 <h3>Company</h3>
                 <ul>
@@ -132,216 +437,292 @@
                 </ul>
             </div>
 
-            <!-- Colonne Newsletter -->
             <div class="footer-column newsletter-section">
                 <h3>Subscribe</h3>
                 <input type="email" class="email-input" placeholder="Email address">
             </div>
         </div>
 
-        <!-- Footer Bottom -->
         <div class="footer-bottom">
             <div class="footer-bottom-content">
-                <!-- Logo -->
                 <div class="footer-logo">
                     <div class="footer-logo-icon"><img src="astro.png" class="gg"></div>
-                    
                 </div>
 
-                <!-- Links -->
                 <div class="footer-links">
                     <a href="#">Terms</a>
                     <a href="#">Privacy</a>
                     <a href="#">Cookies</a>
                 </div>
 
-                <!-- Social Icons -->
                 <div class="social-icons">
-                    <div class="social-icon"> <a href="#"><img src="instag.webp" class="img1" ></a>
-           </div>
-                    <div class="social-icon"> 
-            <a href="#"><img src="fac.webp" class="img1" ></a>
-            </a></div>
-                    <div class="social-icon"><a href="#"><img src="twitttt.webp" class="img1" ></div>
+                    <div class="social-icon"><a href="#"><img src="instag.webp" class="img1"></a></div>
+                    <div class="social-icon"><a href="#"><img src="fac.webp" class="img1"></a></div>
+                    <div class="social-icon"><a href="#"><img src="twitttt.webp" class="img1"></a></div>
                 </div>
             </div>
         </div>
     </footer>
+
     <script>
-/* ============================================================
-   1) VARIABLES
-============================================================ */
-let missions = [];        // rempli après fetch
-let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
-let editId = null;
+        let missions = [];
+        let currentFilter = 'all';
+        let editingIndex = null;
+        const container = document.getElementById("searchResults");
+        const searchInput = document.getElementById("searchInput");
+        const resultsCount = document.getElementById("resultsCount");
+        const modal = document.getElementById("missionModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const missionForm = document.getElementById("missionForm");
 
-/* ============================================================
-   2) CHARGER LE JSON (FETCH)
-============================================================ */
-fetch("data/missions.json")
-    .then(res => res.json())
-    .then(data => {
-        missions = data;
-        renderMissions();
-        renderFavoris();
-    })
-    .catch(err => console.log("Erreur JSON :", err));
+        // Charger les missions
+        fetch("data/missions.json")
+            .then(res => res.json())
+            .then(data => {
+                missions = data;
+                renderMissions(missions);
+                updateResultsCount(missions.length);
+            })
+            .catch(err => console.error("Erreur de chargement :", err));
 
-/* ============================================================
-   3) ELEMENTS DU DOM
-============================================================ */
-const container = document.querySelector(".planet-cards");
-const favorisContainer = document.getElementById("favorisContainer");
+        // Fonction de rendu des missions
+        function renderMissions(missionsToRender) {
+            if (missionsToRender.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔭</div>
+                        <p>Aucune mission trouvée</p>
+                        <p style="font-size: 14px; margin-top: 10px;">Essayez avec d'autres termes de recherche</p>
+                    </div>
+                `;
+                return;
+            }
 
-const btnAdd = document.getElementById("btnAddMission");
-const modal = document.getElementById("missionModal");
-const form = document.getElementById("missionForm");
-const closeModalBtn = document.getElementById("closeModal");
-
-/* ============================================================
-   4) OUVRIR / FERMER LE MODAL
-============================================================ */
-btnAdd.onclick = () => openModal();
-closeModalBtn.onclick = () => closeModal();
-
-function openModal(mission = null) {
-    modal.classList.remove("hidden");
-
-    if (mission) {
-        document.getElementById("modalTitle").textContent = "Modifier la mission";
-        document.getElementById("title").value = mission.name;
-        document.getElementById("agence").value = mission.agency;
-        document.getElementById("objectif").value = mission.objective;
-        document.getElementById("date").value = mission.launchDate;
-        document.getElementById("image").value = mission.image;
-
-        editId = mission.id;
-    } else {
-        editId = null;
-        form.reset();
-        document.getElementById("modalTitle").textContent = "Nouvelle mission";
-    }
-}
-
-function closeModal() {
-    modal.classList.add("hidden");
-    form.reset();
-}
-
-/* ============================================================
-   5) AJOUT / EDITION MISSION
-============================================================ */
-form.addEventListener("submit", e => {
-    e.preventDefault();
-
-    const missionData = {
-        id: editId ?? Date.now(),
-        name: document.getElementById("title").value,
-        agency: document.getElementById("agence").value,
-        objective: document.getElementById("objectif").value,
-        launchDate: document.getElementById("date").value,
-        image: document.getElementById("image").value
-    };
-
-    if (editId) {
-        missions = missions.map(m => m.id === editId ? missionData : m);
-    } else {
-        missions.push(missionData);
-    }
-
-    closeModal();
-    renderMissions();
-    renderFavoris();
-});
-
-/* ============================================================
-   6) SUPPRESSION
-============================================================ */
-function deleteMission(id) {
-    if (!confirm("Supprimer cette mission ?")) return;
-
-    missions = missions.filter(m => m.id !== id);
-    favoris = favoris.filter(f => f !== id);
-
-    renderMissions();
-    renderFavoris();
-    saveFavoris();
-}
-
-/* ============================================================
-   7) FAVORIS
-============================================================ */
-function toggleFavoris(id) {
-    if (favoris.includes(id)) {
-        favoris = favoris.filter(f => f !== id);
-    } else {
-        favoris.push(id);
-    }
-
-    saveFavoris();
-    renderMissions();
-    renderFavoris();
-}
-
-function saveFavoris() {
-    localStorage.setItem("favoris", JSON.stringify(favoris));
-}
-
-/* ============================================================
-   8) AFFICHAGE MISSIONS
-============================================================ */
-function renderMissions() {
-    container.innerHTML = "";
-
-    missions.forEach(m => {
-        container.innerHTML += `
-            <div class="planet-card">
-                <h2>${m.name}</h2>
-
-                <img src="${m.image}" class="card-video"/>
-
-                <div class="nnana">
-                    <div><label>Agence:</label> <span>${m.agency}</span></div>
-                    <div><label>Objectif:</label> <span>${m.objective}</span></div>
-                    <div><label>Date:</label> <span>${m.launchDate}</span></div>
+            container.innerHTML = missionsToRender.map((m, index) => `
+                <div class="planet-card" data-index="${index}">
+                    <h2>${m.name}</h2>
+                    <img src="${m.image}" class="card-video"/>
+                    <div class="nnana">
+                        <div><label>Agence:</label> <span>${m.agency}</span></div>
+                        <div><label>Objectif:</label> <span>${m.objective}</span></div>
+                        <div><label>Date:</label> <span>${m.launchDate}</span></div>
+                        ${m.category ? `<div><label>Catégorie:</label> <span>${m.category}</span></div>` : ''}
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editMission(${index})">
+                            ✏️ Modifier
+                        </button>
+                        <button class="btn-delete" onclick="deleteMission(${index})">
+                            🗑️ Supprimer
+                        </button>
+                    </div>
                 </div>
+            `).join("");
+        }
 
-              
-                <div class="boutonss">
-                <div class="mdf">
-                <button onclick='openModal(${JSON.stringify(m)})' class="btn1">Modifier</button>
-                <button onclick="deleteMission(${m.id})" class="btn1">Supprimer</button></div>
-                <button class="favorite-btn" onclick="toggleFavoris(${m.id})">
-                    ${favoris.includes(m.id) ? "⭐" : "☆"}
-                </button></div>
-            </div>
+        // Fonction de recherche
+        function searchMissions(query) {
+            query = query.toLowerCase().trim();
+
+            if (!query) {
+                renderMissions(missions);
+                updateResultsCount(missions.length);
+                return;
+            }
+
+            const filtered = missions.filter(mission => {
+                switch(currentFilter) {
+                    case 'name':
+                        return mission.name.toLowerCase().includes(query);
+                    case 'agency':
+                        return mission.agency.toLowerCase().includes(query);
+                    case 'objective':
+                        return mission.objective.toLowerCase().includes(query);
+                    case 'date':
+                        return mission.launchDate.toLowerCase().includes(query);
+                    case 'category':
+                        return mission.category && mission.category.toLowerCase().includes(query);
+                    case 'all':
+                    default:
+                        return mission.name.toLowerCase().includes(query) ||
+                               mission.agency.toLowerCase().includes(query) ||
+                               mission.objective.toLowerCase().includes(query) ||
+                               mission.launchDate.toLowerCase().includes(query) ||
+                               (mission.category && mission.category.toLowerCase().includes(query));
+                }
+            });
+
+            renderMissions(filtered);
+            updateResultsCount(filtered.length);
+        }
+
+        // Mettre à jour le compteur de résultats
+        function updateResultsCount(count) {
+            if (searchInput.value.trim()) {
+                resultsCount.textContent = `${count} mission${count > 1 ? 's' : ''} trouvée${count > 1 ? 's' : ''}`;
+            } else {
+                resultsCount.textContent = `${count} mission${count > 1 ? 's' : ''} au total`;
+            }
+        }
+
+        // Fonction pour modifier une mission
+        function editMission(index) {
+            editingIndex = index;
+            const mission = missions[index];
+            
+            modalTitle.textContent = "Modifier la mission";
+            document.getElementById("missionName").value = mission.name;
+            document.getElementById("missionAgency").value = mission.agency;
+            document.getElementById("missionObjective").value = mission.objective;
+            document.getElementById("missionDate").value = mission.launchDate;
+            document.getElementById("missionCategory").value = mission.category || '';
+            document.getElementById("missionImage").value = mission.image;
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Fonction pour supprimer une mission
+        function deleteMission(index) {
+            const mission = missions[index];
+            
+            // Créer un dialogue de confirmation personnalisé
+            const confirmDiv = document.createElement('div');
+            confirmDiv.innerHTML = `
+                <div class="confirm-dialog">
+                    <h3>⚠️ Confirmer la suppression</h3>
+                    <p>Êtes-vous sûr de vouloir supprimer la mission<br><strong>"${mission.name}"</strong> ?</p>
+                    <div class="confirm-dialog-buttons">
+                        <button class="confirm-yes" id="confirmYes">Oui, supprimer</button>
+                        <button class="confirm-no" id="confirmNo">Annuler</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(confirmDiv);
+            
+            document.getElementById('confirmYes').addEventListener('click', () => {
+                missions.splice(index, 1);
+                renderMissions(missions);
+                updateResultsCount(missions.length);
+                document.body.removeChild(confirmDiv);
+                
+                // Notification de succès
+                showNotification('Mission supprimée avec succès!', 'success');
+            });
+            
+            document.getElementById('confirmNo').addEventListener('click', () => {
+                document.body.removeChild(confirmDiv);
+            });
+        }
+
+        // Fonction pour afficher une notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'};
+                color: white;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 2000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Gestion du formulaire
+        missionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const missionData = {
+                name: document.getElementById("missionName").value,
+                agency: document.getElementById("missionAgency").value,
+                objective: document.getElementById("missionObjective").value,
+                launchDate: document.getElementById("missionDate").value,
+                category: document.getElementById("missionCategory").value,
+                image: document.getElementById("missionImage").value
+            };
+            
+            if (editingIndex !== null) {
+                missions[editingIndex] = missionData;
+                showNotification('Mission modifiée avec succès!', 'success');
+                editingIndex = null;
+            } else {
+                missions.push(missionData);
+                showNotification('Mission ajoutée avec succès!', 'success');
+            }
+            
+            renderMissions(missions);
+            updateResultsCount(missions.length);
+            modal.classList.add('hidden');
+            missionForm.reset();
+        });
+
+        // Fermer le modal
+        document.getElementById('closeModal').addEventListener('click', () => {
+            modal.classList.add('hidden');
+            missionForm.reset();
+            editingIndex = null;
+        });
+
+        // Fermer le modal en cliquant en dehors
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                missionForm.reset();
+                editingIndex = null;
+            }
+        });
+
+        // Événement de recherche
+        searchInput.addEventListener('input', (e) => {
+            searchMissions(e.target.value);
+        });
+
+        // Gestion des filtres
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                searchMissions(searchInput.value);
+            });
+        });
+
+        // Ajouter les animations CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
         `;
-    });
-}
-
-/* ============================================================
-   9) AFFICHAGE FAVORIS
-============================================================ */
-function renderFavoris() {
-    favorisContainer.innerHTML = "";
-
-    favoris.forEach(id => {
-        const m = missions.find(mi => mi.id === id);
-        if (!m) return;
-
-        favorisContainer.innerHTML += `
-            <div class="planet-card">
-                <h2>${m.name}</h2>
-                <img src="${m.image}" class="card-video"/>
-
-                <button class="favorite-btn" onclick="toggleFavoris(${m.id})">
-                    Retirer ⭐
-                </button>
-            </div>
-        `;
-    });
-}
-</script>
-
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>

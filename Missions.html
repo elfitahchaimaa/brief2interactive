@@ -7,6 +7,8 @@
     <meta name="description" content="Page d'accueil — structure HTML de base">
     <title>Missions</title>
     <link rel="stylesheet" href="missions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         /* Style pour la barre de recherche */
         .search-container {
@@ -681,7 +683,7 @@
                 return `
                     <div class="planet-card" data-index="${index}">
                         <span class="favorite-icon ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(${index})">
-                            ${isFavorite ? '⭐' : '☆'}
+                            ${isFavorite ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>'}
                         </span>
                         <h2>${m.name}</h2>
                         <img src="${m.image}" class="card-video"/>
@@ -693,10 +695,10 @@
                         </div>
                         <div class="card-actions">
                             <button class="btn-edit" onclick="editMission(${index})">
-                                ✏️ Modifier
+                                <i class="fa-solid fa-pencil"></i> Modifier
                             </button>
                             <button class="btn-delete" onclick="deleteMission(${index})">
-                                🗑️ Supprimer
+                                <i class="fa-solid fa-trash"></i> Supprimer
                             </button>
                         </div>
                     </div>
@@ -709,7 +711,7 @@
             if (favorites.length === 0) {
                 favoritesContainer.innerHTML = `
                     <div class="empty-favorites">
-                        <div class="empty-favorites-icon">⭐</div>
+                        <div class="empty-favorites-icon"><i class="fa-regular fa-star"></i></div>
                         <h3 style="color: white; margin-bottom: 10px;">Aucun favori</h3>
                         <p>Cliquez sur l'étoile d'une mission pour l'ajouter à vos favoris</p>
                     </div>
@@ -722,7 +724,7 @@
                 const originalIndex = favorites[arrayIndex];
                 return `
                     <div class="planet-card">
-                        <span class="favorite-icon active" onclick="toggleFavorite(${originalIndex})">⭐</span>
+                        <span class="favorite-icon active" onclick="toggleFavorite(${originalIndex})"><i class="fa-solid fa-star"></i></span>
                         <h2>${m.name}</h2>
                         <img src="${m.image}" class="card-video"/>
                         <div class="nnana">
@@ -745,7 +747,7 @@
                 showNotification('Retiré des favoris', 'info');
             } else {
                 favorites.push(index);
-                showNotification('Ajouté aux favoris ⭐', 'success');
+                showNotification('Ajouté aux favoris ', 'success');
             }
             
             updateFavoritesCount();
@@ -836,7 +838,7 @@
             const confirmDiv = document.createElement('div');
             confirmDiv.innerHTML = `
                 <div class="confirm-dialog">
-                    <h3>⚠️ Confirmer la suppression</h3>
+                    <h3><i class="fa-solid fa-triangle-exclamation"></i> Confirmer la suppression</h3>
                     <p>Êtes-vous sûr de vouloir supprimer la mission<br><strong>"${mission.name}"</strong> ?</p>
                     <div class="confirm-dialog-buttons">
                         <button class="confirm-yes" id="confirmYes">Oui, supprimer</button>
@@ -927,10 +929,10 @@
 
             switch (type) {
                 case 'success':
-                    notification.style.backgroundColor = '#38ef7d';
+                    notification.style.backgroundColor = 'green';
                     break;
                 case 'danger':
-                    notification.style.backgroundColor = '#f5576c';
+                    notification.style.backgroundColor = 'red';
                     break;
                 case 'info':
                 default:
